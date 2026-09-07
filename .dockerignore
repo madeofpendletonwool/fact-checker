@@ -1,0 +1,8 @@
+.git
+.env
+.dockerignore
+.gitignore
+.golangci.yml
+docker-compose.yml
+docs/
+.github/

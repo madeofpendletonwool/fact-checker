@@ -1,0 +1,41 @@
+name: fact-checker
+
+services:
+  app:
+    build: .
+    environment:
+      FACTCHECK_DATABASE_URL: postgres://factcheck:factcheck@db:5432/factcheck?sslmode=disable
+      FACTCHECK_LISTEN_ADDR: ":8080"
+      FACTCHECK_LOG_LEVEL: "info"
+    ports:
+      - "${FACTCHECK_APP_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: factcheck
+      POSTGRES_PASSWORD: factcheck
+      POSTGRES_DB: factcheck
+    ports:
+      - "${FACTCHECK_DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U factcheck -d factcheck"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+volumes:
+  pgdata:

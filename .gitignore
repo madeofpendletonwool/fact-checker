@@ -1,0 +1,15 @@
+# Environment — real values live only in .env, never committed.
+.env
+
+# Build outputs
+/fact-checker
+/bin/
+/dist/
+
+# Test and coverage artifacts
+*.out
+*.test
+
+# Editor and OS noise
+.DS_Store
+*.swp
