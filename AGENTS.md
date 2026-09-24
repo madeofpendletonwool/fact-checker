@@ -16,6 +16,8 @@ on anything architectural.
 | Health check        | `curl -fsS http://localhost:8080/healthz` |
 | Migrate only        | `go run ./cmd/fact-checker migrate`  |
 | Integrity checks    | `go run ./cmd/fact-checker integrity` |
+| Extract run         | `go run ./cmd/fact-checker extract run --adapter <manifest.json>` |
+| Extract ledger      | `go run ./cmd/fact-checker extract status` |
 
 Run lint and the full test suite before every commit push. CI runs the same
 commands on every push and pull request, and builds the container image to
