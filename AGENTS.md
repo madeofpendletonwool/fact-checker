@@ -15,10 +15,18 @@ on anything architectural.
 | Run stack           | `docker compose up --build`          |
 | Health check        | `curl -fsS http://localhost:8080/healthz` |
 | Migrate only        | `go run ./cmd/fact-checker migrate`  |
+| Integrity checks    | `go run ./cmd/fact-checker integrity` |
 
 Run lint and the full test suite before every commit push. CI runs the same
 commands on every push and pull request, and builds the container image to
 GHCR on merge to `main`.
+
+Database-backed tests (migrations, integrity) skip unless
+`FACTCHECK_TEST_DATABASE_URL` points at a scratch Postgres; CI provisions
+one. Locally: `docker run -e POSTGRES_USER=factcheck -e
+POSTGRES_PASSWORD=factcheck -e POSTGRES_DB=factcheck_test -p 55432:5432
+postgres:17-alpine` and export
+`FACTCHECK_TEST_DATABASE_URL=postgres://factcheck:factcheck@localhost:55432/factcheck_test?sslmode=disable`.
 
 ## Conventions
 
