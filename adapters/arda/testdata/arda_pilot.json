@@ -1,0 +1,55 @@
+{
+  "adapter": "arda",
+  "reference_source": "tolkien-gateway",
+  "domain": {
+    "name": "The History of Arda",
+    "role": "extraction historian",
+    "mission": "a rigorously sourced narrative history of Middle-earth built from a cited lore database",
+    "rules": [
+      "Store dates in their NATIVE calendar only (valian_years, years_of_the_trees, first_age, second_age, third_age, fourth_age); never convert between calendars.",
+      "If the tradition is silent or vague, use precision circa/range or omit dating and put a human phrase in a label field. Do not guess precise years.",
+      "Entities: persons, peoples, places, objects, works-within-the-world (kind values: person, people, place, object, work_in_world)."
+    ]
+  },
+  "policy": {
+    "require_reference": true,
+    "require_primary": true
+  },
+  "scope_notes": [
+    "Books I–II of the parent-plan outline (pilot corpus)"
+  ],
+  "max_candidates": 14,
+  "max_unit_chars": 24000,
+  "candidate_tier_max": 2,
+  "candidate_units": [
+    {
+      "source": "the-silmarillion",
+      "title": "Of the Flight of the Noldor",
+      "locator": {"chapter": "Of the Flight of the Noldor"},
+      "summary": "The rebellion of the Noldor, the Kinslaying at Alqualondë, and the crossing to Middle-earth.",
+      "keywords": ["galadriel", "feanor", "noldor", "alqualonde", "helcaraxe", "kinslaying", "valinor", "flight"],
+      "default": true
+    },
+    {
+      "source": "the-silmarillion",
+      "title": "Of Fëanor",
+      "locator": {"chapter": "Of Fëanor"},
+      "summary": "Fëanor, his works, and his sons.",
+      "keywords": ["feanor", "finwe", "silmarils", "valinor"]
+    },
+    {
+      "source": "unfinished-tales",
+      "title": "The History of Galadriel and Celeborn",
+      "locator": {"part": "The History of Galadriel and Celeborn"},
+      "summary": "Later writings on Galadriel's history and her opposition to Fëanor.",
+      "keywords": ["galadriel", "celeborn", "amroth", "lorien", "feanor"],
+      "default": true
+    },
+    {
+      "source": "tolkien-gateway",
+      "title": "tier filter probe (tier 3, never a candidate)",
+      "locator": {"url": "https://tolkiengateway.net/wiki/Probe"},
+      "keywords": ["galadriel", "feanor", "noldor", "valinor"]
+    }
+  ]
+}

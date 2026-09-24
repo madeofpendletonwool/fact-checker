@@ -13,10 +13,11 @@ deterministic check sets, and ground-truth connectors. First application: a
 docs-drift detector — internal documentation fact-checked against live
 infrastructure.
 
-Status: core data model landed (tiered sources, documents, the claims graph,
-contradictions, audited statements, and the pipeline ledgers — see
-[docs/schema](docs/schema/)); the pipeline stages land incrementally, and
-decisions are recorded in the [ADRs](docs/adr/).
+Status: core data model and the cite-or-drop extraction stage have landed
+(the extraction engine, ledgers, and the Arda-shaped adapter config — see
+[docs/extraction.md](docs/extraction.md) and [docs/schema](docs/schema/));
+the remaining stages land incrementally, and decisions are recorded in the
+[ADRs](docs/adr/).
 
 ## Quickstart
 
@@ -35,7 +36,7 @@ host-run development.
 
 | Path                | Purpose                                                          |
 | ------------------- | ---------------------------------------------------------------- |
-| `cmd/fact-checker/` | the binary: `serve`, `migrate`, `integrity`, `version`           |
+| `cmd/fact-checker/` | the binary: `serve`, `migrate`, `integrity`, `extract`, `version` |
 | `internal/config`   | environment configuration contract                               |
 | `internal/database` | datastore connectivity                                            |
 | `internal/migrations` | embedded, versioned SQL migrations                              |

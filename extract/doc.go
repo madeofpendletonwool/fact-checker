@@ -1,5 +1,6 @@
-// Package extract will hold the cite-or-drop extraction stage: turning
-// ingested documents into atomic, fully-cited claims, entities, and events.
+// Package extract holds the cite-or-drop extraction stage: turning
+// ingested documents into atomic, fully-cited claims, entities, and
+// events.
 //
 // The model extracts and cites; it never decides what is true. Outputs may
 // only cite sources from the adapter-built candidate set for the work unit;

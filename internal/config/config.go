@@ -70,6 +70,12 @@ type Config struct {
 	// requests. StageIntervals optionally overrides it per stage.
 	RequestMinInterval time.Duration
 	StageIntervals     map[Stage]time.Duration
+
+	// ExtractMaxUnits is the hard per-run unit cap for extraction runs.
+	ExtractMaxUnits int
+	// ExtractConcurrency is the default in-flight model call count for
+	// extraction runs.
+	ExtractConcurrency int
 }
 
 // Load reads configuration from the environment, applying defaults for
@@ -99,6 +105,12 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 	if cfg.RequestMinInterval, err = getenvDuration("FACTCHECK_REQUEST_MIN_INTERVAL", 500*time.Millisecond); err != nil {
+		return nil, err
+	}
+	if cfg.ExtractMaxUnits, err = getenvInt("FACTCHECK_EXTRACT_MAX_UNITS", 500); err != nil {
+		return nil, err
+	}
+	if cfg.ExtractConcurrency, err = getenvInt("FACTCHECK_EXTRACT_CONCURRENCY", 1); err != nil {
 		return nil, err
 	}
 
@@ -165,6 +177,18 @@ func getenvFloat(key string, def float64) (float64, error) {
 		return 0, fmt.Errorf("%s: %w", key, err)
 	}
 	return f, nil
+}
+
+func getenvInt(key string, def int) (int, error) {
+	raw, ok := os.LookupEnv(key)
+	if !ok || raw == "" {
+		return def, nil
+	}
+	n, err := strconv.Atoi(raw)
+	if err != nil {
+		return 0, fmt.Errorf("%s: %w", key, err)
+	}
+	return n, nil
 }
 
 func upper(s string) string {
