@@ -1,0 +1,12 @@
+DROP TABLE relationships;
+DROP TABLE relationship_type_aliases;
+DROP TABLE relationship_types;
+DROP TABLE claim_sources;
+DROP TABLE claim_versions;
+DROP TABLE claims;
+DROP TABLE event_sources;
+DROP TABLE event_links;
+DROP TABLE event_participants;
+DROP TABLE events;
+DROP TABLE entity_names;
+DROP TABLE entities;
