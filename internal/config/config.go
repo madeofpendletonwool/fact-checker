@@ -76,6 +76,20 @@ type Config struct {
 	// ExtractConcurrency is the default in-flight model call count for
 	// extraction runs.
 	ExtractConcurrency int
+
+	// ValidateMaxClaims is the hard per-run adversarial claim cap for
+	// validation runs.
+	ValidateMaxClaims int
+	// ValidateBatchSize is claims per adversarial model call.
+	ValidateBatchSize int
+	// ValidateAgreementThreshold is the score at or above which an
+	// 'agree' verdict stands.
+	ValidateAgreementThreshold float64
+	// ValidateMaxAttempts bounds model calls per batch, including JSON
+	// repairs.
+	ValidateMaxAttempts int
+	// ValidateReferenceChars caps the reference passage sent per claim.
+	ValidateReferenceChars int
 }
 
 // Load reads configuration from the environment, applying defaults for
@@ -111,6 +125,21 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 	if cfg.ExtractConcurrency, err = getenvInt("FACTCHECK_EXTRACT_CONCURRENCY", 1); err != nil {
+		return nil, err
+	}
+	if cfg.ValidateMaxClaims, err = getenvInt("FACTCHECK_VALIDATE_MAX_CLAIMS", 2000); err != nil {
+		return nil, err
+	}
+	if cfg.ValidateBatchSize, err = getenvInt("FACTCHECK_VALIDATE_BATCH_SIZE", 10); err != nil {
+		return nil, err
+	}
+	if cfg.ValidateAgreementThreshold, err = getenvFloat("FACTCHECK_VALIDATE_AGREEMENT_THRESHOLD", 0.8); err != nil {
+		return nil, err
+	}
+	if cfg.ValidateMaxAttempts, err = getenvInt("FACTCHECK_VALIDATE_MAX_ATTEMPTS", 3); err != nil {
+		return nil, err
+	}
+	if cfg.ValidateReferenceChars, err = getenvInt("FACTCHECK_VALIDATE_REFERENCE_CHARS", 6000); err != nil {
 		return nil, err
 	}
 
