@@ -18,6 +18,7 @@ import (
 
 	"github.com/madeofpendletonwool/fact-checker/adapters"
 	"github.com/madeofpendletonwool/fact-checker/extract"
+	"github.com/madeofpendletonwool/fact-checker/validate"
 )
 
 // CandidateConfig is one citeable primary-source unit.
@@ -111,6 +112,26 @@ func init() {
 
 // Brief implements extract.Adapter.
 func (a *Adapter) Brief() extract.DomainBrief { return a.brief }
+
+// ValidationBrief implements validate.Adapter: the same domain framing,
+// now addressing the skeptical auditor.
+func (a *Adapter) ValidationBrief() validate.Brief {
+	return validate.Brief{
+		Name:    a.brief.Name,
+		Mission: a.brief.Mission,
+		Rules:   a.brief.DomainRules,
+	}
+}
+
+// ReferenceSource implements validate.Adapter: the manifest's reference
+// source is where extracted claims' reference passages live.
+func (a *Adapter) ReferenceSource() string { return a.config.ReferenceSource }
+
+// Checks implements validate.Adapter. The reference implementation's
+// domain invariants (dating bounds, genealogy cycles) are the worked
+// example of what lands here; this port ships the extraction shape
+// first and adds them with the adapter SDK (stage 4).
+func (a *Adapter) Checks() []validate.Check { return nil }
 
 // BuildUnits implements extract.Adapter: one unit per latest-revision
 // document of the reference source, candidates narrowed per document.

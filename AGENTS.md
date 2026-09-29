@@ -18,6 +18,8 @@ on anything architectural.
 | Integrity checks    | `go run ./cmd/fact-checker integrity` |
 | Extract run         | `go run ./cmd/fact-checker extract run --adapter <manifest.json>` |
 | Extract ledger      | `go run ./cmd/fact-checker extract status` |
+| Validate run        | `go run ./cmd/fact-checker validate run --adapter <manifest.json>` |
+| Validate ledger     | `go run ./cmd/fact-checker validate status` |
 
 Run lint and the full test suite before every commit push. CI runs the same
 commands on every push and pull request, and builds the container image to

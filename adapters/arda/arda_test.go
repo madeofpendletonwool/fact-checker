@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"os"
 	"reflect"
+	"sort"
 	"testing"
 	"time"
 
@@ -34,6 +35,7 @@ func (s *fakeStore) LatestDocuments(_ context.Context, sourceID string) ([]extra
 	for _, d := range newest {
 		out = append(out, d)
 	}
+	sort.Slice(out, func(i, j int) bool { return out[i].Title < out[j].Title })
 	return out, nil
 }
 
